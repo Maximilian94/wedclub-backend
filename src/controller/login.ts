@@ -1,6 +1,6 @@
-const { loginService } = require("../services/login.ts");
+import { loginService } from "../services/login";
 
-const loginController = async (req, res) => {
+const loginController = async (req: any, res: any) => {
 	console.log("Login controller");
 	const { email, password } = req.body;
 	try {
