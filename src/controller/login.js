@@ -1,4 +1,4 @@
-const { loginService } = require("../services/login");
+const { loginService } = require("../services/login.ts");
 
 const loginController = async (req, res) => {
 	console.log("Login controller");
