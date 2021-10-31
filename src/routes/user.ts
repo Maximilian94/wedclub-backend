@@ -1,7 +1,10 @@
-import express from "express";
+const express = require("express");
 
 const route = express.Router();
 
-route.post("/", () => console.log("Cria"));
+// import { createUserController } from "../controller/user";
+const { createUserController } = require("../controller/user");
+
+route.post("/", createUserController);
 
 export default route;
