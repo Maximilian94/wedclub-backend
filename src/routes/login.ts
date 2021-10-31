@@ -1,16 +1,16 @@
 const express = require("express");
 
-const login = express.Router();
+const router = express.Router();
 
 const { loginController } = require("../controller/login");
 
-login.post(
+router.post(
 	"/",
-	(req, res, next) => {
+	(req: any, res: any, next: any) => {
 		console.log("Login route");
 		next();
 	},
 	loginController
 );
 
-module.exports = login;
+export default router;

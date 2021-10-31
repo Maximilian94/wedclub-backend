@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 
 const bodyParser = require("body-parser");
-const { Login } = require("../routes");
+const { login, user } = require("../routes");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
 	console.log("Aoba");
 });
 
-app.use("/login", Login);
+app.use("/login", login);
+app.use("/user", user);
 
 module.exports = app;

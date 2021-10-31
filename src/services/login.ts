@@ -16,5 +16,5 @@ export const loginService = async (email: string, password: string) => {
 			token: tokenCreator("Maximilian Kaden", email, "costumer"),
 		};
 	}
-	return { status: 401 };
+	return { status: 401, message: "Invalid username or password" };
 };
