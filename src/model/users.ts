@@ -8,9 +8,14 @@ const getAllUsers = async () => {
 
 const findUser = async (email: string, password: string) => {
 	const response = await connection().then((db: any) =>
-		db.collection("users").findOne({ email: email, password: password })
+		db
+			.collection("users")
+			.findOne(
+				{ email: email, password: password },
+				{ projection: { password: 0 } }
+			)
 	);
-	console.log(response);
+	console.log("FindUser");
 	return response;
 };
 

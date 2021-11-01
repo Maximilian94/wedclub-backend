@@ -18,6 +18,7 @@ export const loginService = async (email: string, password: string) => {
 		return {
 			status: 200,
 			token: tokenCreator(id, email, response.role),
+			userData: response,
 		};
 	}
 	return { status: 401, message: "Invalid username or password" };
