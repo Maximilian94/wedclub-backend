@@ -18,11 +18,14 @@ const createUser = async (
 	firstName: string,
 	lastName: string,
 	email: string,
-	password: string
+	password: string,
+	role: string
 ) => {
 	try {
 		const response = await connection().then((db: any) =>
-			db.collection("users").insertOne({ firstName, lastName, email, password })
+			db
+				.collection("users")
+				.insertOne({ firstName, lastName, email, password, role })
 		);
 		if (response.acknowledged) return { status: 201, message: "User created" };
 		else if (!response.acknowledged)
