@@ -6,10 +6,13 @@ const route = express.Router();
 const {
 	createUserController,
 	getAllUsersController,
+	getUserByIdController,
 } = require("../controller/user");
 
 route.post("/", createUserController);
 
 route.get("/", getAllUsersController);
+
+route.get("/:id", getUserByIdController);
 
 export default route;

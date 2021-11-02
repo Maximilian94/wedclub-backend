@@ -1,4 +1,4 @@
-import { getAllUsersService } from "../services/user";
+import { getAllUsersService, getUserByIdService } from "../services/user";
 const { createUser } = require("../model/users");
 
 const createUserController = async (req: any, res: any) => {
@@ -25,4 +25,14 @@ const getAllUsersController = async (req: any, res: any) => {
 	return res.status(response.status).json(response.payload);
 };
 
-module.exports = { createUserController, getAllUsersController };
+const getUserByIdController = async (req: any, res: any) => {
+	const { id } = req.params;
+	const response = await getUserByIdService(id);
+	return res.status(response.status).json(response);
+};
+
+module.exports = {
+	createUserController,
+	getAllUsersController,
+	getUserByIdController,
+};

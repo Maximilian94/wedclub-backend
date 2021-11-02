@@ -1,3 +1,5 @@
+import { ObjectID } from "mongodb";
+
 const connection = require("./database/mongoConnection");
 
 const getAllUsers = async () => {
@@ -16,6 +18,18 @@ const findUser = async (email: string, password: string) => {
 			)
 	);
 	console.log("FindUser");
+	return response;
+};
+
+const getUserById = async (id: string) => {
+	const objId = new ObjectID(id);
+	console.log(id);
+	const response = await connection().then((db: any) =>
+		db
+			.collection("users")
+			.findOne({ _id: objId }, { projection: { password: 0 } })
+	);
+	console.log(response);
 	return response;
 };
 
@@ -41,4 +55,4 @@ const createUser = async (
 	}
 };
 
-module.exports = { getAllUsers, createUser, findUser };
+module.exports = { getAllUsers, createUser, findUser, getUserById };

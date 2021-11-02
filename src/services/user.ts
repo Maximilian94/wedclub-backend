@@ -1,4 +1,4 @@
-const { getAllUsers } = require("../model/users");
+const { getAllUsers, getUserById } = require("../model/users");
 
 export const createUserService = (
 	firstName: string,
@@ -12,4 +12,12 @@ export const createUserService = (
 export const getAllUsersService = async () => {
 	const response = await getAllUsers();
 	return { status: 200, payload: response };
+};
+
+export const getUserByIdService = async (id: string) => {
+	const response = await getUserById(id);
+	if (response) {
+		return { status: 200, userData: response };
+	}
+	return { status: 404 };
 };
