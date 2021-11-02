@@ -39,6 +39,7 @@ const updateUserByIdController = async (req: any, res: any) => {
 	const { id } = req.params;
 	const updateData = req.body;
 	const response = await updateUserByIdService(id, updateData);
+	return res.status(response.status).json(response.payload);
 };
 
 module.exports = {

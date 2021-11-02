@@ -24,4 +24,12 @@ export const getUserByIdService = async (id: string) => {
 
 export const updateUserByIdService = async (id: string, updateData: object) => {
 	const response = await updateUserById(id, updateData);
+	if (response.error) {
+		console.log("Teve erro");
+		return {
+			status: 400,
+			payload: { message: "Internal error, user not updated" },
+		};
+	}
+	return { status: 200, payload: { message: "User updated" } };
 };

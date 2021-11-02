@@ -58,18 +58,20 @@ const createUser = async (
 const updateUserById = async (id: string, updateData: object) => {
 	console.log("Aoba");
 	console.log(id);
-	const response = await connection().then((db: any) =>
-		db
-			.collection("users")
-			.findOneAndUpdate(
-				{ _id: new ObjectID(id) },
-				{ $set: updateData },
-				{ new: true, upsert: true }
-			)
-	);
-	console.log("depois");
-	console.log(response);
-	return response;
+	try {
+		const response = await connection().then((db: any) =>
+			db
+				.collection("users")
+				.findOneAndUpdate(
+					{ _id: new ObjectID(id) },
+					{ $set: updateData },
+					{ new: true, upsert: true }
+				)
+		);
+		return response;
+	} catch (error) {
+		return { error: error };
+	}
 };
 
 module.exports = {
