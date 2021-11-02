@@ -55,4 +55,27 @@ const createUser = async (
 	}
 };
 
-module.exports = { getAllUsers, createUser, findUser, getUserById };
+const updateUserById = async (id: string, updateData: object) => {
+	console.log("Aoba");
+	console.log(id);
+	const response = await connection().then((db: any) =>
+		db
+			.collection("users")
+			.findOneAndUpdate(
+				{ _id: new ObjectID(id) },
+				{ $set: updateData },
+				{ new: true, upsert: true }
+			)
+	);
+	console.log("depois");
+	console.log(response);
+	return response;
+};
+
+module.exports = {
+	getAllUsers,
+	createUser,
+	findUser,
+	getUserById,
+	updateUserById,
+};

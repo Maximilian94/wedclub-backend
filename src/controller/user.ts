@@ -1,4 +1,8 @@
-import { getAllUsersService, getUserByIdService } from "../services/user";
+import {
+	getAllUsersService,
+	getUserByIdService,
+	updateUserByIdService,
+} from "../services/user";
 const { createUser } = require("../model/users");
 
 const createUserController = async (req: any, res: any) => {
@@ -31,8 +35,15 @@ const getUserByIdController = async (req: any, res: any) => {
 	return res.status(response.status).json(response);
 };
 
+const updateUserByIdController = async (req: any, res: any) => {
+	const { id } = req.params;
+	const updateData = req.body;
+	const response = await updateUserByIdService(id, updateData);
+};
+
 module.exports = {
 	createUserController,
 	getAllUsersController,
 	getUserByIdController,
+	updateUserByIdController,
 };
