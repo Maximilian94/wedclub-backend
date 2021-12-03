@@ -8,6 +8,7 @@ const {
 	getAllUsersController,
 	getUserByIdController,
 	updateUserByIdController,
+	deleteUserByIdController,
 } = require("../controller/user");
 
 route.post("/", createUserController);
@@ -17,5 +18,7 @@ route.get("/", getAllUsersController);
 route.get("/:id", getUserByIdController);
 
 route.put("/:id", updateUserByIdController);
+
+route.delete("/:id", deleteUserByIdController);
 
 export default route;

@@ -23,13 +23,20 @@ const findUser = async (email: string, password: string) => {
 
 const getUserById = async (id: string) => {
 	const objId = new ObjectID(id);
-	console.log(id);
 	const response = await connection().then((db: any) =>
 		db
 			.collection("users")
 			.findOne({ _id: objId }, { projection: { password: 0 } })
 	);
-	console.log(response);
+	return response;
+};
+
+const findUserByEmail = async (email: string) => {
+	const response = await connection().then((db: any) =>
+		db
+			.collection("users")
+			.findOne({ email: email }, { projection: { password: 0 } })
+	);
 	return response;
 };
 
@@ -46,9 +53,8 @@ const createUser = async (
 				.collection("users")
 				.insertOne({ firstName, lastName, email, password, role })
 		);
-		if (response.acknowledged) return { status: 201, message: "User created" };
-		else if (!response.acknowledged)
-			return { status: 500, message: "User not created" };
+		if (response.acknowledged) return true;
+		else if (!response.acknowledged) return false;
 	} catch (error) {
 		console.log(error);
 		return false;
@@ -74,10 +80,24 @@ const updateUserById = async (id: string, updateData: object) => {
 	}
 };
 
+const deleteUserByIdi = async (id: string) => {
+	const { role } = await getUserById(id);
+	if (role !== "costumer") {
+		return { status: 401 };
+	}
+	const response = await connection().then((db: any) =>
+		db.collection("users").findOneAndDelete({ _id: new ObjectID(id) })
+	);
+
+	return response.value;
+};
+
 module.exports = {
 	getAllUsers,
 	createUser,
 	findUser,
 	getUserById,
 	updateUserById,
+	deleteUserByIdi,
+	findUserByEmail,
 };
